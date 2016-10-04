@@ -1,0 +1,22 @@
+---
+---
+
+body{
+  margin: 0px;
+  background-color: #000;
+}
+
+#line1 {
+  line-width:5;
+}
+
+#line2 {
+  color:red;
+  line-width:2;
+}
+
+#line3 {
+  color:blue;
+  dash-size:2;
+  gap-size:2;
+}

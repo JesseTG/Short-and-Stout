@@ -1,0 +1,69 @@
+---
+---
+
+<html>
+  <head>
+    <title>glam - line tests</title>
+
+    <style>
+      {% comment %}
+      GLAM balks if the styles are loaded externally, and I have no idea why.
+      {% endcomment %}
+
+      body{
+        margin: 0px;
+        background-color: #000;
+      }
+
+      #line1 {
+        line-width:5;
+      }
+
+      #line2 {
+        color:red;
+        line-width:2;
+      }
+
+      #line3 {
+        color:blue;
+        dash-size:2;
+        gap-size:2;
+      }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+    <script src="{{ 'script/glam.min.js' | prepend:site.baseurl }}" ></script>
+  </head>
+
+  <body>
+    <main id="container" style="width:98%; height:98%;position:absolute;">
+      <glam>
+        <scene>
+          <group x='-1' y='1'>
+          <line id="line1">
+            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
+            <colors>1 0 0 0 1 0 0 1 1 0 0 1 1 0 0</colors>
+          </line>
+          </group>
+          <group x='1' y='1'>
+          <line id="line2">
+            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
+          </line>
+          </group>
+          <group x='-1' y='-1'>
+          <line id="line3">
+            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
+          </line>
+          </group>
+          <group x='1' y='-1'>
+          <line id="line2">
+            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
+          </line>
+          </group>
+        </scene>
+      </glam>
+    </main>
+
+
+  </body>
+</html>
