@@ -15,54 +15,41 @@
         background-color: #000;
       }
 
-      #line1 {
-        line-width:5;
-      }
-
-      #line2 {
-        color:red;
+      #floor {
+        color: #ff0000;
         line-width:2;
+        transform: scaleX(4) scaleZ(4);
       }
 
-      #line3 {
-        color:blue;
-        dash-size:2;
-        gap-size:2;
+      #teapot {
+        shader: phong;
+        diffuse-color: #00ff00;
       }
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
     <script src="{{ 'script/glam.min.js' | prepend:site.baseurl }}" ></script>
+    {% comment %}Scripts loaded up-front to prevent a flash of unstyled content (FOUC).{% endcomment %}
   </head>
 
   <body>
-    <main id="container" style="width:98%; height:98%;position:absolute;">
+    <div id="container" style="width:98%; height:98%;position:absolute;">
       <glam>
         <scene>
-          <group x='-1' y='1'>
-          <line id="line1">
-            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
-            <colors>1 0 0 0 1 0 0 1 1 0 0 1 1 0 0</colors>
-          </line>
-          </group>
-          <group x='1' y='1'>
-          <line id="line2">
-            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
-          </line>
-          </group>
-          <group x='-1' y='-1'>
-          <line id="line3">
-            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
-          </line>
-          </group>
-          <group x='1' y='-1'>
-          <line id="line2">
-            <vertices>-.5 -.5 0 .5 -.5 0 .5 .5 0 -.5 .5 0 -.5 -.5 0</vertices>
-          </line>
+          <mesh id="teapot" vertexNormals="true">
+            <vertices>{{ site.data.teapot.vertices[0].values | join:' ' }}</vertices>
+            <normals>{{ site.data.teapot.vertices[1].values | join:' ' }}</normals>
+            <faces>{{ site.data.teapot.connectivity[0].indices | join:' ' }}</faces>
+          </mesh>
+
+          <group>
+            <line id="floor">
+              <vertices>0.5 0.0 0.5 -0.5 0.0 0.5 -0.5 0.0 -0.5 0.5 0.0 -0.5 0.5 0.0 0.5</vertices>
+            </line>
           </group>
         </scene>
       </glam>
-    </main>
+    </div>
 
 
   </body>
