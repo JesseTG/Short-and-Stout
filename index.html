@@ -3,7 +3,7 @@
 
 <html>
   <head>
-    <title>glam - line tests</title>
+    <title>I'm a little teapot, short and stout</title>
 
     <style>
       {% comment %}
@@ -23,7 +23,41 @@
 
       #teapot {
         shader: phong;
-        diffuse-color: #00ff00;
+        reflectivity: 5;
+        diffuse-color: #eee;
+      }
+
+      #saucer {
+        shader: phong;
+        reflectivity: 5;
+        diffuse-color: #77a;
+      }
+
+      .steam {
+        image: url({{ 'image/steam.png' | prepend:site.baseurl }});
+      }
+
+      #root {
+        animation-duration: 10s;
+        animation-name: spin;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      .dont-like-it {
+        transform: rotateY(90deg);
+        shader: lambert;
+        diffuse-color: red;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotateY(0deg);
+        }
+
+        to {
+         transform: rotateY(360deg);
+        }
       }
     </style>
 
@@ -36,16 +70,51 @@
     <div id="container" style="width:98%; height:98%;position:absolute;">
       <glam>
         <scene>
-          <mesh id="teapot" vertexNormals="true">
-            <vertices>{{ site.data.teapot.vertices[0].values | join:' ' }}</vertices>
-            <normals>{{ site.data.teapot.vertices[1].values | join:' ' }}</normals>
-            <faces>{{ site.data.teapot.connectivity[0].indices | join:' ' }}</faces>
-          </mesh>
+          <camera/>
+          <group id="root">
+            <mesh id="teapot" vertexNormals="true">
+              <vertices>{{ site.data.teapot.vertices[0].values | join:' ' }}</vertices>
+              <normals>{{ site.data.teapot.vertices[1].values | join:' ' }}</normals>
+              <faces>{{ site.data.teapot.connectivity[0].indices | join:' ' }}</faces>
+            </mesh>
+            <cylinder id="saucer" height="0.1" y="-0.05" />
 
-          <group>
-            <line id="floor">
-              <vertices>0.5 0.0 0.5 -0.5 0.0 0.5 -0.5 0.0 -0.5 0.5 0.0 -0.5 0.5 0.0 0.5</vertices>
-            </line>
+            <particles maxAge="5" class="steam" x="3" y="2.3">
+              <emitter
+                acceleration="0 -0.09 0"
+                accelerationSpread="1.4 0.6 1.4"
+                blending="normal"
+                opacityMiddle="0.2"
+                opacityStart="0.8"
+                opacityEnd="0"
+                particlesPerSecond="50"
+                positionSpread="0.1 0 0.1"
+                size="1"
+                sizeEnd="5"
+                velocity="1.2 3 0"
+                >
+              </emitter>
+            </particles>
+            <particles maxAge="5" class="steam" y="2.5">
+              <emitter
+                acceleration="0 -0.09 0"
+                accelerationSpread="0.8 0.8 0.8"
+                blending="normal"
+                opacityMiddle="0.05"
+                opacityStart="0.8"
+                opacityEnd="0"
+                particlesPerSecond="1"
+                positionSpread="3 0.1 3"
+                size="1"
+                sizeEnd="5"
+                velocity="0 2 0"
+                >
+              </emitter>
+            </particles>
+
+            <text value="Tea is for the weak" class="dont-like-it" y="6.5"></text>
+            <text value="Coffee master race" class="dont-like-it" y="5"></text>
+            <text value="Discuss amongst yourselves" class="dont-like-it" y="-1"></text>
           </group>
         </scene>
       </glam>
